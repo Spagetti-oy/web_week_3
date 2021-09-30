@@ -11,8 +11,8 @@ if (document.readyState !== "loading") {
 }
 
 function initializeCode() {
-  document.getElementById("app").innerHTML =
-    "<h1>Hello! Welcome to the doggo wiki!</h1>";
+  /*document.getElementById("app").innerHTML =
+    "<h1>Hello! Welcome to the doggo wiki!</h1>";*/
 
   let dogList = ["shiba", "pomeranian", "dachshund", "husky", "dingo"];
 
@@ -57,8 +57,28 @@ async function addWikiItem(dogBreed) {
 
   let wikiText = document.createElement("p");
   wikiText.setAttribute("class", "wiki-text");
-  wikiText.innerHTML =
-    "Shiba on pienikokoinen, voimakasrakenteinen ja tasapainoinen pystykorva. Koiran rotumääritelmän mukaan sallittu säkäkorkeus on uroksilla 40 cm ja nartuilla 37 cm; sallittu poikkeama on 1,5 senttimetriä. Häntä on korkealle kiinnittynyt, paksu ja asennoltaan sirpinmuotoisesti kaartuva tai terhakasti rullalle kiertyvä, silmät suhteellisen pienet ja ulkokulmistaan yläviistoon kääntyvät.";
+
+  let urlSummary =
+    "https://en.wikipedia.org/api/rest_v1/page/summary/" + dogBreed;
+
+  switch (dogBreed) {
+    case "shiba":
+      urlSummary =
+        "https://en.wikipedia.org/api/rest_v1/page/summary/shiba_inu";
+      break;
+    case "pomeranian":
+      urlSummary =
+        "https://en.wikipedia.org/api/rest_v1/page/summary/pomeranian_dog";
+      break;
+    default:
+  }
+
+  fetch(urlSummary)
+    .then((res) => res.json())
+    .then((result) => {
+      console.log(result.extract);
+      wikiText.innerHTML = result.extract;
+    });
 
   let imgContainer = document.createElement("div");
   imgContainer.setAttribute("class", "img-container");
