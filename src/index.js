@@ -14,14 +14,33 @@ function initializeCode() {
   document.getElementById("app").innerHTML =
     "<h1>Hello! Welcome to the doggo wiki!</h1>";
 
-  let i = 0;
+  let dogList = ["shiba", "pomeranian", "dachshund", "husky", "dingo"];
+
+  dogList.forEach(addWikiItem);
+
+  /*let i = 0;
   while (i < 5) {
     addWikiItem();
     i++;
-  }
+  }*/
 }
+/*
+async function loadImage() {
+  fetch("https://dog.ceo/api/breed/hound/images/random")
+    .then((res) => res.json())
+    .then((result) => {
+      console.log(result.message);
+      //let link = result.message;
+      return result.message;
+    });
+*/
+/*let url = "https://dog.ceo/api/breed/hound/images/random";
+  let response = await fetch(url);
 
-function addWikiItem() {
+  let image = await response.json();
+}*/
+
+async function addWikiItem(dogBreed) {
   const container = document.getElementById("container");
 
   let wikiItem = document.createElement("div");
@@ -31,7 +50,7 @@ function addWikiItem() {
 
   let wikiHeader = document.createElement("h1");
   wikiHeader.setAttribute("class", "wiki-header");
-  wikiHeader.innerHTML = "Shiba";
+  wikiHeader.innerHTML = dogBreed;
 
   let wikiContent = document.createElement("div");
   wikiContent.setAttribute("class", "wiki-content");
@@ -46,14 +65,27 @@ function addWikiItem() {
 
   let wikiImg = document.createElement("img");
   wikiImg.setAttribute("class", "wiki-img");
-  wikiImg.src = "";
+
+  let url = "https://dog.ceo/api/breed/" + dogBreed + "/images/random";
+
+  console.log(url);
+  fetch(url)
+    .then((res) => res.json())
+    .then((result) => {
+      console.log(result.message);
+      wikiImg.src = result.message;
+    });
+
+  //wikiImg.src = await loadImage();
+  //console.log(wikiImg.src);
 
   imgContainer.appendChild(wikiImg);
-  wikiContent.appendChild(wikiText);
   wikiContent.appendChild(imgContainer);
+  wikiContent.appendChild(wikiText);
+
   wikiItem.appendChild(wikiHeader);
   wikiItem.appendChild(wikiContent);
   container.appendChild(wikiItem);
 
-  console.log("jeejee");
+  console.log("lisää item loppu");
 }
