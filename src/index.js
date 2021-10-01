@@ -17,36 +17,13 @@ function initializeCode() {
   let dogList = ["shiba", "pomeranian", "dachshund", "husky", "dingo"];
 
   dogList.forEach(addWikiItem);
-
-  /*let i = 0;
-  while (i < 5) {
-    addWikiItem();
-    i++;
-  }*/
 }
-/*
-async function loadImage() {
-  fetch("https://dog.ceo/api/breed/hound/images/random")
-    .then((res) => res.json())
-    .then((result) => {
-      console.log(result.message);
-      //let link = result.message;
-      return result.message;
-    });
-*/
-/*let url = "https://dog.ceo/api/breed/hound/images/random";
-  let response = await fetch(url);
-
-  let image = await response.json();
-}*/
 
 async function addWikiItem(dogBreed) {
   const container = document.getElementById("container");
 
   let wikiItem = document.createElement("div");
   wikiItem.setAttribute("class", "wiki-item");
-  //wikiItem.setAttribute("id", "wiki-item");
-  //wikiItem.innerHTML = "yeeyeyey";
 
   let wikiHeader = document.createElement("h1");
   wikiHeader.setAttribute("class", "wiki-header");
@@ -96,9 +73,6 @@ async function addWikiItem(dogBreed) {
       wikiImg.src = result.message;
     });
 
-  //wikiImg.src = await loadImage();
-  //console.log(wikiImg.src);
-
   imgContainer.appendChild(wikiImg);
   wikiContent.appendChild(imgContainer);
   wikiContent.appendChild(wikiText);
@@ -106,6 +80,4 @@ async function addWikiItem(dogBreed) {
   wikiItem.appendChild(wikiHeader);
   wikiItem.appendChild(wikiContent);
   container.appendChild(wikiItem);
-
-  console.log("lisää item loppu");
 }
